@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  onSnapshot,
-  collection,
-  setDoc,
-  doc,
-} from "firebase/firestore";
+import { onSnapshot, collection, setDoc, doc } from "firebase/firestore";
 import styled from "styled-components";
 import db from "./firebase";
 
@@ -13,7 +8,7 @@ const HousesInfos = () => {
     { image: "Chargement...", id: "Initialisation" },
   ]);
 
-  console.log(houses)
+  console.log(houses);
 
   useEffect(() => {
     const datas = onSnapshot(collection(db, "houses"), (snapshot) => {
@@ -24,18 +19,18 @@ const HousesInfos = () => {
 
   const handleOnClickPos = async (id) => {
     const docRef = doc(db, "houses", id);
-    const houseToModified = houses.find(house => id == house.id);
-    const addVote = houseToModified.vote +1;
-    const payload = { ...houseToModified, vote: addVote }
-    setDoc(docRef, payload)
+    const houseToModified = houses.find((house) => id == house.id);
+    const addVote = houseToModified.vote + 1;
+    const payload = { ...houseToModified, vote: addVote };
+    setDoc(docRef, payload);
   };
 
   const handleOnClickNeg = (id) => {
     const docRef = doc(db, "houses", id);
-    const houseToModified = houses.find(house => id == house.id);
-    const addVote = houseToModified.vote -1;
-    const payload = { ...houseToModified, vote: addVote }
-    setDoc(docRef, payload)
+    const houseToModified = houses.find((house) => id == house.id);
+    const addVote = houseToModified.vote - 1;
+    const payload = { ...houseToModified, vote: addVote };
+    setDoc(docRef, payload);
   };
 
   return (
@@ -43,11 +38,11 @@ const HousesInfos = () => {
       {houses.map((locations) => (
         <House key={locations.id}>
           <MyImg src={locations.image} alt="House Image" />
-          <p>
+          <MyDivButton>
             <a href={locations.link} target="_blank">
-              {locations.link}
+              <MyButton type="button">Voir la location</MyButton>
             </a>
-          </p>
+          </MyDivButton>
           <p>{locations.price} euros</p>
           <p>{locations.location}</p>
           <p>{locations.dates}</p>
@@ -98,6 +93,23 @@ const House = styled.div`
 
 const MyImg = styled.img`
   max-width: 95%;
+`;
+
+const MyDivButton = styled.div`
+  display: flex;
+`;
+
+const MyButton = styled.button`
+  margin: 1rem auto 0;
+  padding: 1rem;
+  font-size: 1rem;
+  border-radius: 55px;
+  background-color: #00a100;
+  color: white;
+  font-weight: bold;
+  :hover {
+    background-color: #02cc02;
+  }
 `;
 
 const Prices = styled.div`
