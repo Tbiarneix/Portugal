@@ -26,8 +26,11 @@ const App = () => {
 };
 
 const MyH1 = styled.h1`
-  color: #000000;
+  color: #fff;
   text-align: center;
+  padding: 2rem;
+  margin-top: 0;
+  background-color: #6e0707;
 `;
 
 const MyH2 = styled.h2`
@@ -39,6 +42,10 @@ const MyP = styled.p`
   text-align: center;
   width: 50%;
   margin: 0 auto 2rem;
+
+  @media screen and (max-width: 600px) {
+  width: 85%;
+}
 `;
 
 export default App;
